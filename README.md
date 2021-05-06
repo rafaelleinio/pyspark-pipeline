@@ -17,6 +17,8 @@ _A nice project solution for building and running pipelines for feature store._
 ## Introduction
 This repository shows a simple implementation of an data aggregation pipeline.
 
+The Top Revenue pipeline implementation can be found [here](https://github.com/rafaelleinio/pyspark-test/blob/main/pyspark_test/pipelines/top_revenue.py)
+
 ## Getting started
 
 #### Clone the project:
@@ -31,7 +33,7 @@ cd pyspark-test
 docker build --tag pyspark-test .
 ```
 
-#### Run the Top Revenue
+#### Run the Top Revenue pipeline
 ```bash
 docker run -v $(pwd)/data:/pyspark-test/data pyspark-test
 ```
