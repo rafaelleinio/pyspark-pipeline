@@ -1,8 +1,4 @@
-
-
-# Legiti Challenge
-_A nice project solution for building and running pipelines for feature store._
-
+# Pyspark Tests
 ![Python Version](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9-brightgreen.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![aa](https://img.shields.io/badge/code%20quality-flake8-blue)](https://github.com/PyCQA/flake8)
@@ -16,7 +12,6 @@ _A nice project solution for building and running pipelines for feature store._
 
 ## Introduction
 This repository shows a simple implementation of an data aggregation pipeline.
-
 The Top Revenue pipeline implementation can be found [here](https://github.com/rafaelleinio/pyspark-test/blob/main/pyspark_test/pipelines/top_revenue.py)
 
 ## Getting started
