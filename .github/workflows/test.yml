@@ -1,0 +1,24 @@
+name: "Tests"
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+
+jobs:
+  Pipeline:
+    runs-on: ubuntu-16.04
+    container: rafaelleinio/docker-java-python
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: make ci-install
+
+    - name: Checks
+      run: PYTHONPATH=./pip/deps make checks
+
+    - name: Tests
+      run: PYTHONPATH=./pip/deps make tests
