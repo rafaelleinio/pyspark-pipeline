@@ -76,7 +76,7 @@ type-check:
 	@echo "mypy"
 	@echo "===="
 	@echo ""
-	@python -m mypy pyspark_test
+	@python -m mypy --no-warn-unused-ignores pyspark_test
 
 .PHONY: checks
 checks:
