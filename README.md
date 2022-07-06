@@ -23,16 +23,49 @@ git clone git@github.com:rafaelleinio/pyspark-test.git
 cd pyspark-test
 ```
 
-#### Build Docker image
+#### Run app in docker compose
 ```bash
-docker build --tag pyspark-test .
+make app
 ```
 
-#### Run the Top Revenue pipeline
-```bash
-docker run -v $(pwd)/data:/pyspark-test/data pyspark-test
+Inside app interactive shell:
 ```
-> the results will be available under `data/output/output.csv`
+# pcli --help
+Usage: pcli [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --install-completion [bash|zsh|fish|powershell|pwsh]
+                                  Install completion for the specified shell.
+  --show-completion [bash|zsh|fish|powershell|pwsh]
+                                  Show completion for the specified shell, to
+                                  copy it or customize the installation.
+  --help                          Show this message and exit.
+
+Commands:
+  init-db  Initialize the database with all models declared in domain.
+  run      Trigger a pipeline ETL.
+
+```
+
+```
+/# pcli run --help
+Usage: pcli run [OPTIONS]
+
+  Trigger a pipeline ETL.
+
+  Args:     pipeline: choice of pipelines to run.
+
+Options:
+  --pipeline [top_revenue|sample]
+                                  [default: PipelineEnum.top_revenue]
+  --help                          Show this message and exit.
+```
+
+#### Teardown docker compose
+```bash
+make teardown
+```
+
 
 ## Development
 
@@ -62,7 +95,12 @@ Integration tests:
 ```bash
 make integration-tests
 ```
-All tests:
+All (unit + integration) tests:
 ```bash
 make tests
+```
+
+e2e tests (with docker compose):
+```bash
+make e2e-tests
 ```
