@@ -2,9 +2,11 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
 
 
-# from https://github.com/quintoandar/butterfree/blob/master/butterfree/testing/dataframe/__init__.py#L11  # noqa
 def assert_dataframe_equality(output_df: DataFrame, target_df: DataFrame) -> None:
     """Dataframe comparison method."""
+    if not isinstance(output_df, DataFrame):
+        raise AssertionError("output_df is not a Spark DataFrame.")
+
     if not (
         output_df.count() == target_df.count()
         and len(target_df.columns) == len(output_df.columns)

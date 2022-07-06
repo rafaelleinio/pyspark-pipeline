@@ -1,11 +1,12 @@
-FROM rafaelleinio/docker-java-python
+FROM openjdk:8 as dependencies
+COPY --from=python:3.10 / /
 
-COPY ./requirements.txt /pyspark-test/requirements.txt
+COPY requirements.txt .
 RUN pip install --upgrade pip
-RUN pip install -r /pyspark-test/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.dev.txt .
+RUN pip install --no-cache-dir -r requirements.dev.txt
+COPY . .
 
-COPY . /pyspark-test
-RUN pip install /pyspark-test/.
-
-WORKDIR /pyspark-test
-CMD ["python", "./pyspark_test/pipelines/top_revenue_runner.py"]
+FROM dependencies
+RUN pip install .

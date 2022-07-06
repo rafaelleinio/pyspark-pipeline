@@ -3,7 +3,7 @@ from typing import Optional
 
 from pyspark.sql import DataFrame
 
-from pyspark_test.core.spark_client import SparkClient
+from pyspark_pipeline.core.spark_client import SparkClient
 
 
 class ETLPipeline(ABC):
@@ -15,10 +15,7 @@ class ETLPipeline(ABC):
     """
 
     def __init__(self, spark_client: Optional[SparkClient] = None):
-        if not spark_client:
-            spark_client = SparkClient()
-            spark_client.create_session()
-        self.spark_client = spark_client
+        self.spark_client = spark_client or SparkClient()
 
     def run(self) -> None:
         """Run the pipeline.
@@ -27,18 +24,19 @@ class ETLPipeline(ABC):
         steps.
 
         """
+        self.spark_client.create_session()
         extract_df = self._extract()
         transform_df = self._transform(extract_df)
         return self._load(transform_df)
 
     @abstractmethod
     def _extract(self) -> DataFrame:
-        """Materialization should implement extract step."""
+        """Child class should implement extract step."""
 
     @abstractmethod
     def _transform(self, df: DataFrame) -> DataFrame:
-        """Materialization should implement transform step."""
+        """Child class should implement transform step."""
 
     @abstractmethod
     def _load(self, df: DataFrame) -> None:
-        """Materialization should implement load step."""
+        """Child class should implement load step."""

@@ -115,3 +115,5 @@ ENV/
 
 # Drone.io
 pip/
+
+.DS_Store

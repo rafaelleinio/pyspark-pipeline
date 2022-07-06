@@ -1,7 +1,7 @@
 import pytest
 from pyspark.sql.session import SparkSession
 
-from pyspark_test.core.spark_client import SparkClient
+from pyspark_pipeline.core.spark_client import SparkClient
 
 
 class TestSparkClient:
