@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 __package_name__ = "pyspark_pipeline"
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 __repository_url__ = "https://github.com/rafaelleinio/pyspark-test"
 
 with open("requirements.txt") as f:
