@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 from pyspark.sql import DataFrame
 
-from pyspark_test.core.pipeline import ETLPipeline
+from pyspark_pipeline.core.pipeline import ETLPipeline
 
 
 class DummyETLPipeline(ETLPipeline):

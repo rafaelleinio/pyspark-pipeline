@@ -1,0 +1,2 @@
+{"version": 3, "record": {"field_group_one": {"key1": "valueA",  "key2": "valueB", "key3": "valueC"}, "field_group_two":  {"days_since_event": 8235, "key4": "valueD", "key5": "valueE"}}}
+{"version": 1, "record": {"field_group_one": {"key1": "valueF", "key2": "valueG", "key3": "valueH"}, "field_group_two": {"days_since_event": 2987, "key4": "valueI", "key5": "valueJ"}}}

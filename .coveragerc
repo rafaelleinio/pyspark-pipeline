@@ -1,0 +1,2 @@
+[run]
+omit = pyspark_pipeline/cli.py

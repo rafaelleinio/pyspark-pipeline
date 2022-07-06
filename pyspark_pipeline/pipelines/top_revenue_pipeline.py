@@ -3,9 +3,9 @@ from typing import Optional
 from pyspark.sql import DataFrame, functions
 from pyspark.sql.window import Window
 
-from pyspark_test.core.io import read_csv_dataset, write_single_csv_dataset
-from pyspark_test.core.pipeline import ETLPipeline
-from pyspark_test.core.spark_client import SparkClient
+from pyspark_pipeline.core.io import read_csv_dataset, write_single_csv_dataset
+from pyspark_pipeline.core.pipeline import ETLPipeline
+from pyspark_pipeline.core.spark_client import SparkClient
 
 
 class TopRevenuePipeline(ETLPipeline):

@@ -16,6 +16,7 @@ class SparkClient:
 
         Returns:
             Spark session.
+
         Raises:
             AttributeError: if the session is not created yet.
 
@@ -27,10 +28,15 @@ class SparkClient:
     def create_session(self) -> None:
         """Create or get a live Spark Session for the SparkClient.
 
-        When creating the session the function installs the Graphframes extension if not
-        presented.
+        When creating the session the function installs all third-party packages
+        dependencies. The first time installing, the session can take longer to be
+        created, but the next times are faster.
 
         """
         if not self._session:
-            self._session = SparkSession.builder.appName("meli-challenge").getOrCreate()
+            self._session = (
+                SparkSession.builder.appName("pyspark-pipeline")
+                .config("spark.jars.packages", "org.postgresql:postgresql:42.4.0")
+                .getOrCreate()
+            )
             self._session.sparkContext.setLogLevel("ERROR")

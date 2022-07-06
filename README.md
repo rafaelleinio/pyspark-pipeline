@@ -1,5 +1,5 @@
-# Pyspark Tests
-![Python Version](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9-brightgreen.svg)
+# Pyspark Pipeline
+![Python Version](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10-brightgreen.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![aa](https://img.shields.io/badge/code%20quality-flake8-blue)](https://github.com/PyCQA/flake8)
 [![Checked with mypy](https://camo.githubusercontent.com/59eab954a267c6e9ff1d80e8055de43a0ad771f5e1f3779aef99d111f20bee40/687474703a2f2f7777772e6d7970792d6c616e672e6f72672f7374617469632f6d7970795f62616467652e737667)](http://mypy-lang.org/)
@@ -12,7 +12,7 @@
 
 ## Introduction
 This repository shows a simple implementation of an data aggregation pipeline.
-The Top Revenue pipeline implementation can be found [here](https://github.com/rafaelleinio/pyspark-test/blob/main/pyspark_test/pipelines/top_revenue.py)
+The Top Revenue pipeline implementation can be found [here](https://github.com/rafaelleinio/pyspark-pipeline/blob/main/pyspark_pipeline/pipelines/top_revenue.py)
 
 ## Getting started
 

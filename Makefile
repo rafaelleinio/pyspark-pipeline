@@ -1,24 +1,18 @@
 .PHONY: minimum-requirements
 minimum-requirements:
-	@PYTHONPATH=. python -m pip install -U -r requirements.txt
+	@pip install -r requirements.txt
 
 .PHONY: dev-requirements
 dev-requirements:
-	@PYTHONPATH=. python -m pip install -U -r requirements.dev.txt
+	@pip install -r requirements.dev.txt
 
 .PHONY: requirements
 ## install all requirements
 requirements: dev-requirements minimum-requirements
 
-.PHONY: ci-install
-ci-install:
-	@pip install --upgrade pip
-	@python -m pip install -U -r requirements.dev.txt -r requirements.txt -t ./pip/deps --cache-dir ./pip/cache
-
 .PHONY: tests
 tests:
-	@python -m pytest -n=auto --cov-config=.coveragerc --cov=pyspark_test --cov-report term --cov-report html:htmlcov --cov-report xml:coverage.xml tests
-	@python -m coverage xml -i
+	@pytest -W ignore::DeprecationWarning --cov=pyspark_pipeline --cov-report term --cov-report html:htmlcov  --cov-fail-under=100 --ignore=tests/e2e tests
 
 .PHONY: unit-tests
 unit-tests:
@@ -26,7 +20,7 @@ unit-tests:
 	@echo "Unit Tests"
 	@echo "=========="
 	@echo ""
-	@python -m pytest -n auto --cov-config=.coveragerc --cov-report term --cov-report html:unit-tests-cov --cov=pyspark_test --cov-fail-under=75 tests/unit
+	@pytest -W ignore::DeprecationWarning --cov=pyspark_pipeline tests/unit
 
 .PHONY: integration-tests
 integration-tests:
@@ -34,16 +28,36 @@ integration-tests:
 	@echo "Integration Tests"
 	@echo "================="
 	@echo ""
-	@python -m pytest -n auto --cov-config=.coveragerc --cov-report term --cov-report xml:integration-tests-cov.xml --cov=pyspark_test --cov-fail-under=60 tests/integration
+	@pytest -W ignore::DeprecationWarning --cov=pyspark_pipeline tests/integration
+
+.PHONY: e2e-tests
+## run e2e tests with infrastructure on docker compose
+e2e-tests:
+	@echo ""
+	@echo "E2E Tests"
+	@echo "================="
+	@echo ""
+	@docker compose -f tests/e2e/docker-compose.yaml up --build e2e
+
+.PHONY: app
+## create db and run am interactive shell with all dependencies installed.
+app:
+	@docker build -t app .
+	@docker compose -f tests/e2e/docker-compose.yaml run app bash
+
+.PHONY: teardown
+## teardown all infra on docker compose
+teardown:
+	@docker compose -f tests/e2e/docker-compose.yaml down
 
 .PHONY: black
 black:
-	@python -m black -t py36 --exclude="build/|buck-out/|dist/|_build/|pip/|\.pip/|\.git/|\.hg/|\.mypy_cache/|\.tox/|\.venv/" .
+	@black --exclude="build/|buck-out/|dist/|_build/|pip/|\.pip/|\.git/|\.hg/|\.mypy_cache/|\.tox/|\.venv/" .
 
 .PHONY: isort
 isort:
-	@python -m isort pyspark_test
-	@python -m isort tests
+	@isort pyspark_pipeline
+	@isort tests
 
 .PHONY: apply-style
 apply-style:
@@ -56,7 +70,7 @@ style-check:
 	@echo "Code Style"
 	@echo "=========="
 	@echo ""
-	@python -m black --check -t py36 --exclude="build/|buck-out/|dist/|_build/|pip/|\.pip/|\.git/|\.hg/|\.mypy_cache/|\.tox/|\.venv/" . && echo "\n\nSuccess" || echo "\n\nFailure\n\nRun \"make black\" to apply style formatting to your code"
+	@python -m black --check --exclude="build/|buck-out/|dist/|_build/|pip/|\.pip/|\.git/|\.hg/|\.mypy_cache/|\.tox/|\.venv/" . && echo "\n\nSuccess" || echo "\n\nFailure\n\nRun \"make black\" to apply style formatting to your code"
 	@echo ""
 
 .PHONY: check-flake8
@@ -65,7 +79,7 @@ check-flake8:
 	@echo "Flake 8"
 	@echo "======="
 	@echo ""
-	@python -m flake8 pyspark_test/ && echo "pyspark_test module success"
+	@python -m flake8 pyspark_pipeline/ && echo "pyspark_pipeline module success"
 	@python -m flake8 tests/ && echo "tests module success"
 	@echo ""
 
@@ -76,7 +90,7 @@ type-check:
 	@echo "mypy"
 	@echo "===="
 	@echo ""
-	@python -m mypy --no-warn-unused-ignores pyspark_test
+	@python -m mypy --no-warn-unused-ignores pyspark_pipeline
 
 .PHONY: checks
 checks:
