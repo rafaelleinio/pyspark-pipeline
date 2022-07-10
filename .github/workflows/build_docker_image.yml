@@ -7,11 +7,11 @@ on:
 
 jobs:
   Pipeline:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     container: docker
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Build Image
-      run: docker build --tag pyspark-test .
+      run: docker build --tag pyspark-pipeline .

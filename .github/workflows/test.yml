@@ -8,17 +8,17 @@ on:
 
 jobs:
   Pipeline:
-    runs-on: ubuntu-16.04
-    container: rafaelleinio/docker-java-python
+    runs-on: ubuntu-latest
+    container: python:3.10
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Install dependencies
-      run: make ci-install
+      run: make requirements
 
     - name: Checks
-      run: PYTHONPATH=./pip/deps make checks
+      run: make checks
 
     - name: Tests
-      run: PYTHONPATH=./pip/deps make tests
+      run: make tests
